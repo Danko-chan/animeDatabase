@@ -2,9 +2,9 @@ import jwt from 'jsonwebtoken'
 import asyncHandler from './async.js' 
 import ErrorResponse from '../utils/errorResponse.js'
 import User from '../models/User.js'
-
+export default class auth{
 // Protect routes
-exports.protect = asyncHandler(async (req, res, next) => {
+static protect = asyncHandler(async (req, res, next) => {
   let token;
     console.log(token)
   if (
@@ -37,7 +37,7 @@ exports.protect = asyncHandler(async (req, res, next) => {
 });
 
 // Grant access to specific roles
-exports.authorize = (...roles) => {
+static authorize = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {
       return next(
@@ -50,3 +50,5 @@ exports.authorize = (...roles) => {
     next();
   };
 };
+
+}
